@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#-*- coding:utf-8 -*-
 from datetime import datetime
 from flask import render_template,session,url_for,redirect,abort,flash,request,abort,make_response,current_app
 from flask_login import current_user,login_required
