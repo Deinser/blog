@@ -24,7 +24,7 @@ def deploy():
 	
 	Role.insert_roles()
 	
-	User.add_self_follows()
+	User.follow_me()
 	
 	
 
