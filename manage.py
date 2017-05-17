@@ -19,7 +19,7 @@ def deploy():
 	from flask_migrate import upgrade
 	from app.models import Role,User
 	
-	upgrade()  #把数据库迁移到最新修订版本
+	upgrade()  
 	
 	Role.insert_roles()
 	
