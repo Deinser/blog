@@ -1,1 +1,1 @@
-web: gunicron manage:app
+web : gunicron manage:app

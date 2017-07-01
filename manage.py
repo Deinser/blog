@@ -27,6 +27,5 @@ def deploy():
 	User.follow_me()
 	
 	
-
 if __name__=='__main__':
 	manager.run()
