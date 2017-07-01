@@ -70,7 +70,7 @@ def register():
 		db.session.add(user)
 		db.session.commit()
 		token=user.generate_confirmation_token()
-		send_email(user.email,'Confirm your email','auth/email/confirm',
+		send_email(user.email,'确认Email','auth/email/confirm',
 		           user=user,token=token)
 		login_user(user)
 		return redirect(url_for('main.index'))
