@@ -86,6 +86,7 @@ db.event.listen(Post.body, 'set', Post.on_changed_body)
 
 
 class Comment(db.Model):
+	__tablename__='comments'
 	id=db.Column(db.Integer,primary_key=True)
 	body=db.Column(db.Text)
 	disabled=db.Column(db.Boolean)
