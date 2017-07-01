@@ -9,18 +9,18 @@ from flask_login import current_user
 
 class LoginForm(FlaskForm):
 	email=StringField('Email',validators=[Required(),Email(),Length(1,20)])
-	password=PasswordField('Password',validators=[Required()])
-	remember_me=BooleanField('keep me logged in')
-	submit=SubmitField('Login in')
+	password=PasswordField('密码',validators=[Required()])
+	remember_me=BooleanField('记住我')
+	submit=SubmitField('登录')
 	
 class RegistrationForm(FlaskForm):
 	email=StringField('Email：',validators=[Required(),Email('Email格式错误'),Length(1,20)])
-	username=StringField('Username：',validators=[Required(),Regexp('^[a-zA-Z][0-9a-zA-Z_]{4,19}',0,
+	username=StringField('用户名：',validators=[Required(),Regexp('^[a-zA-Z][0-9a-zA-Z_]{4,19}',0,
 	                                            '用户名由5-20位数字，字母，下划线组成')])
-	password=PasswordField('Password：',validators=[Required(),
+	password=PasswordField('密码：',validators=[Required(),
 	                       EqualTo('password2',message='Passwords must match.')])
-	password2=PasswordField('Confirm password：',validators=[Required()])
-	submit=SubmitField('Register')
+	password2=PasswordField('确认密码：',validators=[Required()])
+	submit=SubmitField('注册')
 	
 	def validate_email(self,field):
 		if User.query.filter_by(email=field.data).first():
@@ -33,12 +33,11 @@ class RegistrationForm(FlaskForm):
 			
 
 class PasswordForm(FlaskForm):
-	old_password=PasswordField('Old password:',validators=[Required(),Length(6,20)])
-	new_password=PasswordField('New pawwword:',validators=[Required(),Length(6,20)])
-	new_password2=PasswordField('Confirm password:',validators=[Required(),
+	old_password=PasswordField('旧密码:',validators=[Required(),Length(6,20)])
+	new_password=PasswordField('新密码:',validators=[Required(),Length(6,20)])
+	new_password2=PasswordField('确认密码:',validators=[Required(),
 	                          EqualTo('new_password',message='Password must match')])
-	submit=SubmitField('Submit')
-	sorts = SelectField('sort', choices=[('12','123')])
+	submit=SubmitField('提交')
 				
 	
 	def validate_old_password(self,field):

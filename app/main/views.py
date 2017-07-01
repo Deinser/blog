@@ -72,7 +72,7 @@ def post(id):
 		return redirect(url_for('.post',id=post.id,page=-1))
 	page=request.args.get('page',1,type=int)
 	if page==-1:
-		page=((post.comments.count()-1)/15)+1
+		page=((post.comments.count()-1)//15)+1
 	pagination=post.comments.order_by(Comment.timestamp.asc()) \
 			   .paginate(page,per_page=15,error_out=False)
 	comments=pagination.items
