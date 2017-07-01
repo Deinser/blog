@@ -82,8 +82,12 @@ class Post(db.Model):
 			db.session.add(post)
 			db.session.commit()
 			
-db.event.listen(Post.body, 'set', Post.on_changed_body)
-
+class Follow(db.Model):
+	__tablename__='follows'
+	follower_id=db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
+	followed_id=db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
+	timestamp=db.Column(db.DateTime,default=datetime.utcnow)
+			
 
 class Comment(db.Model):
 	__tablename__='comments'
@@ -94,15 +98,9 @@ class Comment(db.Model):
 	author_id=db.Column(db.Integer,db.ForeignKey('users.id'))
 	post_id=db.Column(db.Integer,db.ForeignKey('posts.id'))
 
-class Follow(db.Model):
-	__tablename__='follows'
-	follower_id=db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
-	followed_id=db.Column(db.Integer,db.ForeignKey('users.id'),primary_key=True)
-	timestamp=db.Column(db.DateTime,default=datetime.utcnow)
+
 	
 			 
-		
-	
 class User(UserMixin,db.Model): #要使用flask_login扩展，User模型必须实现4个方法，flask-login提供的
 	__tablename__='users'        #UserMixin类，包含了这些方法的默认实现，且能满足大多数需要
 	id=db.Column(db.Integer,primary_key=True)
@@ -237,6 +235,9 @@ class User(UserMixin,db.Model): #要使用flask_login扩展，User模型必须�
 				db.session.add(user)
 				db.session.commit()
 				
+				
+
+				
 	
 		                                                                       
 	
@@ -250,9 +251,13 @@ class AnonymousUser(AnonymousUserMixin):
 	def is_administrator(self):
 		return False
 		
-login_manager.anonymous_user=AnonymousUser
+
 		
 			
 @login_manager.user_loader
 def load_user(user_id):
 	return User.query.get(int(user_id))
+	
+
+db.event.listen(Post.body, 'set', Post.on_changed_body)
+login_manager.anonymous_user=AnonymousUser
